@@ -1,0 +1,56 @@
+
+# Endpoints
+SITES=sites/$(SITE)
+POSTS=$(SITES)/posts
+MEDIA=$(SITES)/media
+
+#SITES
+site-media:
+	curl \
+		-H 'authorization: Bearer $(TOKEN)' \
+		'$(API_URL)/$(MEDIA)/?pretty=1'
+
+# FreshlyPressed
+freshly-pressed:
+	curl \
+		-H 'authorization: Bearer $(TOKEN)' \
+		'$(API_URL)/freshly-pressed/?pretty=1'
+
+# POST
+post-get:
+	curl \
+		-H 'authorization: Bearer $(TOKEN)' \
+		'$(API_URL)/$(POSTS)/$(POST_ID)/?pretty=1'
+
+post-add:
+	curl \
+		-H 'authorization: Bearer $(TOKEN)' \
+		--data-urlencode 'title=Hello World' \
+		--data-urlencode 'content=Hello. I am a test post. I was created by the API' \
+		--data-urlencode 'tags=tests' \
+		--data-urlencode 'categories=API' \
+		--data-urlencode 'media_urls=http://upload.wikimedia.org/wikipedia/en/5/59/Pac-man.png' \
+		'$(API_URL)/$(POST)/new/?pretty=1'
+
+# MEDIA
+media-get:
+	curl \
+		-H 'authorization: Bearer $(TOKEN)' \
+		'$(API_URL)/$(MEDIA)/$(MEDIA_ID)/?pretty=1'
+
+media-add:
+	curl \
+		-H 'authorization: Bearer $(TOKEN)' \
+		--form 'media[]=$(IMG_FILE_PATH)' \
+		'$(API_URL)/$(MEDIA)/new/?pretty=1'
+
+media-add-urls:
+	curl \
+		-H 'authorization: Bearer $(TOKEN)' \
+		--data-urlencode 'media_urls=http://upload.wikimedia.org/wikipedia/en/5/59/Pac-man.png' \
+		'$(API_URL)/$(MEDIA)/new/?pretty=1'
+
+# BATCH
+batch:
+	curl \
+		'$(API_URL)/batch/?urls\[\]=$(POSTS)/&urls\[\]=/test/25&pretty=1'

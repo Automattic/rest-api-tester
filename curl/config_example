@@ -1,0 +1,9 @@
+
+# Testing data
+TOKEN:=<token>
+SITE:=<site-id>
+API_URL:=https://public-api.wordpress.com/rest/v1
+
+POST_ID:=<post-id>
+MEDIA_ID:=<media-id>
+IMG_FILE_PATH:=@/path/to/file
